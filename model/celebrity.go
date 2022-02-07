@@ -17,6 +17,7 @@ type Celebrity struct {
 }
 
 type Search2 struct {
+	Id   int
 	Name string
 	URL  string
 }
