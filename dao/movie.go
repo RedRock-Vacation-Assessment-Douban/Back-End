@@ -187,3 +187,24 @@ func Search(context string) ([]model.Search, error) {
 
 	return movies, nil
 }
+
+// SelectMovieUSA 搜索电影
+func SelectMovieUSA() ([]model.USA, error) {
+	var movies []model.USA
+
+	rows, err := dB.Query("SELECT id, name, BoxOffice FROM USA WHERE id BETWEEN 1 AND 10")
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.USA
+
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.BoxOffice)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
