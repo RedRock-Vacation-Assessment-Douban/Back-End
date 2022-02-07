@@ -150,3 +150,14 @@ func search(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithTwoDate(ctx, celebrity, movie)
 }
+
+func rankUSA(ctx *gin.Context) {
+	movie, err := service.GetMovieUSA()
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}

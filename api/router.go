@@ -22,6 +22,7 @@ func InitEngine() {
 	engine.GET("/rank1", rank1)   //排行榜
 	engine.GET("/rank2", rank2)   //排行榜
 	engine.GET("/rank3", rank250) //排行榜
+	engine.GET("/rank4", rankUSA) //排行榜
 
 	engine.POST("/search", search) //搜索电影
 
