@@ -50,3 +50,7 @@ func GetSearch(context string) ([]model.Search, error) {
 func GetMovieUSA() ([]model.USA, error) {
 	return dao.SelectMovieUSA()
 }
+
+func GetClassify(mold string, country string) ([]model.Classify, error) {
+	return dao.Classify(mold, country)
+}
