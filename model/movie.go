@@ -72,3 +72,10 @@ type USA struct {
 	Name      string
 	BoxOffice string
 }
+
+type Classify struct {
+	Id    int
+	Name  string
+	Score string
+	URL   string
+}
