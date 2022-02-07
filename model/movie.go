@@ -65,3 +65,9 @@ type Search struct {
 	Starring    string
 	URL         string
 }
+
+type USA struct {
+	Id        int
+	Name      string
+	BoxOffice string
+}
