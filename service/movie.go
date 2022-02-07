@@ -45,3 +45,8 @@ func GetMovieRank250() ([]model.Rank250, error) {
 func GetSearch(context string) ([]model.Search, error) {
 	return dao.Search(context)
 }
+
+// GetMovieUSA 得到电影排行
+func GetMovieUSA() ([]model.USA, error) {
+	return dao.SelectMovieUSA()
+}
