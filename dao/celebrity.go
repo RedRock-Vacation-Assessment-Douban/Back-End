@@ -22,13 +22,13 @@ func SelectCelebrityById(Id int) (model.Celebrity, error) {
 func Search2(context string) ([]model.Search2, error) {
 	var celebrities []model.Search2
 
-	rows, err := dB.Query("SELECT name, url FROM celebrity WHERE Name LIKE ?", context)
+	rows, err := dB.Query("SELECT id, name, url FROM celebrity WHERE Name LIKE ?", context)
 
 	defer rows.Close()
 	for rows.Next() {
 		var celebrity model.Search2
 
-		err = rows.Scan(&celebrity.Name, &celebrity.URL)
+		err = rows.Scan(&celebrity.Id, &celebrity.Name, &celebrity.URL)
 		if err != nil {
 			return nil, err
 		}
