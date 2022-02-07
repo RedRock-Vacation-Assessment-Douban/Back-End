@@ -171,13 +171,13 @@ func SelectMovieRank250() ([]model.Rank250, error) {
 func Search(context string) ([]model.Search, error) {
 	var movies []model.Search
 
-	rows, err := dB.Query("SELECT name, year, director, starring, type, country, length, starnum, score, havewatched, url FROM movie WHERE Name LIKE ?", context)
+	rows, err := dB.Query("SELECT id, name, year, director, starring, type, country, length, starnum, score, havewatched, url FROM movie WHERE Name LIKE ?", context)
 
 	defer rows.Close()
 	for rows.Next() {
 		var movie model.Search
 
-		err = rows.Scan(&movie.Name, &movie.Year, &movie.Director, &movie.Starring, &movie.Type, &movie.Country, &movie.Length, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Director, &movie.Starring, &movie.Type, &movie.Country, &movie.Length, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
 		if err != nil {
 			return nil, err
 		}
