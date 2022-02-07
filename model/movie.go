@@ -53,6 +53,7 @@ type Rank250 struct {
 }
 
 type Search struct {
+	Id          int
 	Name        string
 	Year        string
 	StarNum     string
