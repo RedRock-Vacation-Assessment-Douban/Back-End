@@ -161,3 +161,17 @@ func rankUSA(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithDate(ctx, movie)
 }
+
+func classify(ctx *gin.Context) {
+	context := ctx.Param("context")
+	_type := "%" + context + "%"
+	_country := "%" + context + "%"
+	movie, err := service.GetClassify(_type, _country)
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
