@@ -208,3 +208,22 @@ func SelectMovieUSA() ([]model.USA, error) {
 
 	return movies, nil
 }
+
+func Classify(mold string, country string) ([]model.Classify, error) {
+	var movies []model.Classify
+	//union select id, name, score, url from movie where Country LIKE ?
+	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Type LIKE ? and Country LIKE ?", mold, country)
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Classify
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
