@@ -163,10 +163,44 @@ func rankUSA(ctx *gin.Context) {
 }
 
 func classify(ctx *gin.Context) {
-	context := ctx.Param("context")
-	_type := "%" + context + "%"
-	_country := "%" + context + "%"
+	_type := "%" + ctx.Param("type") + "%"
+	_country := "%" + ctx.Param("country") + "%"
 	movie, err := service.GetClassify(_type, _country)
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
+
+func all(ctx *gin.Context) {
+	movie, err := service.GetAll()
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
+
+func classify1(ctx *gin.Context) {
+	_country := "%" + ctx.Param("country") + "%"
+	movie, err := service.GetClassify1(_country)
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}
+
+func classify2(ctx *gin.Context) {
+	_type := "%" + ctx.Param("type") + "%"
+	movie, err := service.GetClassify2(_type)
 	if err != nil {
 		fmt.Println("get movie err: ", err)
 		tool.RespInternalError(ctx)

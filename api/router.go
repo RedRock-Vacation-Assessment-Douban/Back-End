@@ -25,7 +25,10 @@ func InitEngine() {
 	engine.GET("/rank4", rankUSA) //排行榜
 
 	engine.POST("/search", search) //搜索电影
-	engine.POST("/classify/:context", classify)
+	engine.POST("/classify", all)
+	engine.POST("/classify/:type/:country", classify)
+	engine.POST("/classify1/:country", classify1)
+	engine.POST("/classify2/:type", classify2)
 
 	movieGroup := engine.Group("/movie")
 	movieGroup.Use(CORS())
