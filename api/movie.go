@@ -209,3 +209,15 @@ func classify2(ctx *gin.Context) {
 
 	tool.RespSuccessfulWithDate(ctx, movie)
 }
+
+func classifyRank(ctx *gin.Context) {
+	_type := "%" + ctx.Param("type") + "%"
+	movie, err := service.GetClassifyRank(_type)
+	if err != nil {
+		fmt.Println("get movie err: ", err)
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessfulWithDate(ctx, movie)
+}

@@ -29,6 +29,7 @@ func InitEngine() {
 	engine.POST("/classify/:type/:country", classify)
 	engine.POST("/classify1/:country", classify1)
 	engine.POST("/classify2/:type", classify2)
+	engine.POST("/classifyrank/:type", classifyRank)
 
 	movieGroup := engine.Group("/movie")
 	movieGroup.Use(CORS())
