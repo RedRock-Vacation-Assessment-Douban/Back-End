@@ -32,6 +32,7 @@ type MovieBrief struct {
 }
 
 type Rank1 struct {
+	Id          int
 	Name        string
 	Year        string
 	Starring    string
@@ -78,4 +79,17 @@ type Classify struct {
 	Name  string
 	Score string
 	URL   string
+}
+
+type ClassifyRank struct {
+	Id          int
+	Name        string
+	Year        string
+	Starring    string
+	Type        string
+	Country     string
+	StarNum     int
+	Score       string
+	HaveWatched string
+	URL         string
 }
