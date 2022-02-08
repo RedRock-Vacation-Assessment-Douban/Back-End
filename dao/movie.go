@@ -281,3 +281,21 @@ func Classify2(mold string) ([]model.Classify, error) {
 
 	return movies, nil
 }
+
+func ClassifyRank(mold string) ([]model.Classify, error) {
+	var movies []model.Classify
+	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Type LIKE ? ORDER BY Score desc", mold)
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Classify
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
