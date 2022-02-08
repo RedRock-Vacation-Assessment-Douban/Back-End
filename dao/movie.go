@@ -109,13 +109,13 @@ func SelectURLById(movieId int) string {
 func SelectMovie() ([]model.Rank1, error) {
 	var movies []model.Rank1
 
-	rows, err := dB.Query("SELECT name, year, starring, country, starnum, score, havewatched, URL FROM movie WHERE id BETWEEN 1 AND 10")
+	rows, err := dB.Query("SELECT id, name, year, starring, country, starnum, score, havewatched, URL FROM movie WHERE id BETWEEN 1 AND 10")
 
 	defer rows.Close()
 	for rows.Next() {
 		var movie model.Rank1
 
-		err = rows.Scan(&movie.Name, &movie.Year, &movie.Starring, &movie.Country, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Starring, &movie.Country, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
 		if err != nil {
 			return nil, err
 		}
@@ -282,14 +282,14 @@ func Classify2(mold string) ([]model.Classify, error) {
 	return movies, nil
 }
 
-func ClassifyRank(mold string) ([]model.Classify, error) {
-	var movies []model.Classify
-	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Type LIKE ? ORDER BY Score desc", mold)
+func ClassifyRank(mold string) ([]model.ClassifyRank, error) {
+	var movies []model.ClassifyRank
+	rows, err := dB.Query("SELECT id, name, year, starring, type, country, starnum, score, havewatched, url FROM movie WHERE Type LIKE ? ORDER BY Score desc", mold)
 
 	defer rows.Close()
 	for rows.Next() {
-		var movie model.Classify
-		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		var movie model.ClassifyRank
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Year, &movie.Starring, &movie.Type, &movie.Country, &movie.StarNum, &movie.Score, &movie.HaveWatched, &movie.URL)
 		if err != nil {
 			return nil, err
 		}
