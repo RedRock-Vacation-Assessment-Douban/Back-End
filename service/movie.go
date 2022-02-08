@@ -54,3 +54,15 @@ func GetMovieUSA() ([]model.USA, error) {
 func GetClassify(mold string, country string) ([]model.Classify, error) {
 	return dao.Classify(mold, country)
 }
+
+func GetAll() ([]model.Classify, error) {
+	return dao.All()
+}
+
+func GetClassify1(country string) ([]model.Classify, error) {
+	return dao.Classify1(country)
+}
+
+func GetClassify2(mold string) ([]model.Classify, error) {
+	return dao.Classify2(mold)
+}
