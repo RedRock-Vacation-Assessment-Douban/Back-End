@@ -227,3 +227,57 @@ func Classify(mold string, country string) ([]model.Classify, error) {
 
 	return movies, nil
 }
+
+func All() ([]model.Classify, error) {
+	var movies []model.Classify
+	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Type !='' ")
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Classify
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
+
+func Classify1(country string) ([]model.Classify, error) {
+	var movies []model.Classify
+	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Country LIKE ?", country)
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Classify
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
+
+func Classify2(mold string) ([]model.Classify, error) {
+	var movies []model.Classify
+	rows, err := dB.Query("SELECT id, name, score, url FROM movie WHERE Type LIKE ?", mold)
+
+	defer rows.Close()
+	for rows.Next() {
+		var movie model.Classify
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.Score, &movie.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		movies = append(movies, movie)
+	}
+
+	return movies, nil
+}
