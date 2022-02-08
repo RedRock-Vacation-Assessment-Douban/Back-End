@@ -66,3 +66,7 @@ func GetClassify1(country string) ([]model.Classify, error) {
 func GetClassify2(mold string) ([]model.Classify, error) {
 	return dao.Classify2(mold)
 }
+
+func GetClassifyRank(mold string) ([]model.Classify, error) {
+	return dao.ClassifyRank(mold)
+}
