@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -8,6 +9,7 @@ func InitEngine() {
 	engine := gin.Default()
 	engine.Use(CORS())
 
+	engine.Use(static.Serve("/", static.LocalFile("./static", false)))
 	engine.POST("/register", register)       //注册
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
@@ -35,6 +37,7 @@ func InitEngine() {
 	movieGroup.Use(CORS())
 	{
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
+		movieGroup.GET(":movie_id/:celebrity_id", celebrityDetail)
 		{
 			movieGroup.Use(JWTAuth)
 			movieGroup.GET("/wtw/:movie_id", WTW) //想看
@@ -46,12 +49,6 @@ func InitEngine() {
 	recommendGroup.Use(CORS())
 	{
 		recommendGroup.GET("/:recommend_id", Video)
-	}
-
-	celebrityGroup := engine.Group("/celebrity")
-	celebrityGroup.Use(CORS())
-	{
-		celebrityGroup.GET("/:celebrity_id", celebrityDetail) //影人页
 	}
 
 	userGroup := engine.Group("/user")
