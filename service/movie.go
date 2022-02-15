@@ -27,6 +27,10 @@ func GetURLById(Id int) string {
 	return dao.SelectURLById(Id)
 }
 
+func GetMovieNameById(Id int) string {
+	return dao.SelectMovieNameById(Id)
+}
+
 // GetMovie 得到电影
 func GetMovie() ([]model.Rank1, error) {
 	return dao.SelectMovie()
