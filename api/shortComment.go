@@ -42,6 +42,7 @@ func addShortComment(ctx *gin.Context) {
 	name := iUsername.(string)
 	movieIdString := ctx.Param("movie_id")
 	movieId, err := strconv.Atoi(movieIdString)
+	movieName := service.GetMovieNameById(movieId)
 	context := ctx.PostForm("context")
 	starNumString := ctx.PostForm("starNum")
 	starNum, _ := strconv.Atoi(starNumString)
@@ -53,6 +54,7 @@ func addShortComment(ctx *gin.Context) {
 		StarNum:     starNum,
 		CommentTime: time.Now(),
 		Context:     context,
+		MovieName:   movieName,
 	}
 
 	err = service.AddShortComment(shortComment)
