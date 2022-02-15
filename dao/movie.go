@@ -299,3 +299,19 @@ func ClassifyRank(mold string) ([]model.ClassifyRank, error) {
 
 	return movies, nil
 }
+
+func SelectMovieNameById(movieId int) string {
+	var movie model.ShortComment
+
+	row := dB.QueryRow("SELECT MovieName FROM shortComment WHERE MovieId = ? ", movieId)
+	if row.Err() != nil {
+		return movie.MovieName
+	}
+
+	err := row.Scan(&movie.MovieName)
+	if err != nil {
+		return movie.MovieName
+	}
+
+	return movie.MovieName
+}

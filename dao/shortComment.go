@@ -7,7 +7,7 @@ import (
 
 // InsertShortComment 向话题中插入(发布话题)
 func InsertShortComment(shortComment model.ShortComment) error {
-	_, err := dB.Exec("INSERT INTO shortComment(MovieId, Name, Status, StarNum, CommentTime, Likes, Context) "+"values(?, ?, ?, ?, ?, ?, ?);", shortComment.MovieId, shortComment.Name, shortComment.Status, shortComment.StarNum, shortComment.CommentTime, shortComment.Likes, shortComment.Context)
+	_, err := dB.Exec("INSERT INTO shortComment(MovieId, Name, Status, StarNum, CommentTime, Likes, Context, MovieName) "+"values(?, ?, ?, ?, ?, ?, ?, ?);", shortComment.MovieId, shortComment.Name, shortComment.Status, shortComment.StarNum, shortComment.CommentTime, shortComment.Likes, shortComment.Context, shortComment.MovieName)
 	return err
 }
 
