@@ -13,6 +13,7 @@ type ShortComment struct {
 	CommentTime time.Time `json:"CommentTime"`
 	Likes       int       `json:"Likes"`
 	Context     string    `json:"Context"`
+	MovieName   string    `json:"MovieName"`
 }
 
 type SCPersonal struct {
