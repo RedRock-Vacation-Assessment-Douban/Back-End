@@ -37,7 +37,7 @@ func InitEngine() {
 	movieGroup.Use(CORS())
 	{
 		movieGroup.GET("/:movie_id", movieDetail) //电影页
-		movieGroup.GET(":movie_id/:celebrity_id", celebrityDetail)
+		movieGroup.GET("/:movie_id/:celebrity_id", celebrityDetail)
 		{
 			movieGroup.Use(JWTAuth)
 			movieGroup.GET("/wtw/:movie_id", WTW) //想看
