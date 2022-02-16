@@ -11,7 +11,7 @@ func GetMovieById(movieId int) (model.Movie, error) {
 }
 
 // GetMovies1 得到电影
-func GetMovies1() ([]model.MovieBrief, error) {
+func GetMovies1() ([]model.MovieBrief1, error) {
 	return dao.SelectMovie1()
 }
 
