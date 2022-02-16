@@ -22,7 +22,7 @@ func SelectMovieById(movieId int) (model.Movie, error) {
 // SelectMovie1 查找主页1
 func SelectMovie1() ([]model.MovieBrief1, error) {
 	var movies []model.MovieBrief1
-	rows, err := dB.Query("SELECT id, name, URL, StarNum, Score FROM movie WHERE Id BETWEEN 1 AND 35")
+	rows, err := dB.Query("SELECT id, name, URL, Score FROM movie WHERE Id BETWEEN 1 AND 35")
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func SelectMovie1() ([]model.MovieBrief1, error) {
 	for rows.Next() {
 		var movie model.MovieBrief1
 
-		err = rows.Scan(&movie.Id, &movie.Name, &movie.URL, &movie.StarNum, &movie.Score)
+		err = rows.Scan(&movie.Id, &movie.Name, &movie.URL, &movie.Score)
 		if err != nil {
 			return nil, err
 		}
