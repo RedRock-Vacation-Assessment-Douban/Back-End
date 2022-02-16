@@ -25,6 +25,14 @@ type Movie struct {
 	CoverInfo    string
 }
 
+type MovieBrief1 struct {
+	Id      int
+	Name    string
+	URL     string
+	StarNum int
+	Score   string
+}
+
 type MovieBrief struct {
 	Id   int
 	Name string
