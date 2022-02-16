@@ -26,11 +26,10 @@ type Movie struct {
 }
 
 type MovieBrief1 struct {
-	Id      int
-	Name    string
-	URL     string
-	StarNum int
-	Score   string
+	Id    int
+	Name  string
+	URL   string
+	Score string
 }
 
 type MovieBrief struct {
