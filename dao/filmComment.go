@@ -139,7 +139,7 @@ func SelectMPFC() ([]model.MostPopularFC, error) {
 func SelectMNById(id int) (string, error) {
 	var filmComment model.FilmComment
 
-	row := dB.QueryRow("SELECT MovieName FROM filmComment WHERE id = ? ", id)
+	row := dB.QueryRow("SELECT MovieName FROM filmComment WHERE MovieId = ? ", id)
 	if row.Err() != nil {
 		return filmComment.MovieName, row.Err()
 	}
@@ -156,7 +156,7 @@ func SelectMNById(id int) (string, error) {
 func SelectURLByMId(id int) (string, error) {
 	var filmComment model.FilmComment
 
-	row := dB.QueryRow("SELECT URL FROM filmComment WHERE id = ? ", id)
+	row := dB.QueryRow("SELECT URL FROM filmComment WHERE MovieId = ? ", id)
 	if row.Err() != nil {
 		return filmComment.URL, row.Err()
 	}
