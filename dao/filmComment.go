@@ -71,7 +71,7 @@ func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 // SelectFilmCommentByUsername 查找影评
 func SelectFilmCommentByUsername(name string) ([]model.Personal, error) {
 	var filmComments []model.Personal
-	rows, err := dB.Query("SELECT MovieId, MovieName, Name, Context, PostTime, CommentNum, StarNum, Likes, URL FROM filmComment WHERE Name = ?", name)
+	rows, err := dB.Query("SELECT MovieId, Id, MovieName, Name, Context, PostTime, CommentNum, StarNum, Likes, URL FROM filmComment WHERE Name = ?", name)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func SelectFilmCommentByUsername(name string) ([]model.Personal, error) {
 	for rows.Next() {
 		var filmComment model.Personal
 
-		err = rows.Scan(&filmComment.Id, &filmComment.MovieName, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.URL)
+		err = rows.Scan(&filmComment.MovieId, &filmComment.Id, &filmComment.MovieName, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.URL)
 		if err != nil {
 			return nil, err
 		}

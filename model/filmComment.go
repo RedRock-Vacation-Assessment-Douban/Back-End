@@ -31,6 +31,7 @@ type MostPopularFC struct {
 
 type Personal struct {
 	Id         int
+	MovieId    string
 	MovieName  string
 	Name       string
 	Context    string
