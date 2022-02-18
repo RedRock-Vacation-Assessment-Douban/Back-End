@@ -131,7 +131,7 @@ func register(ctx *gin.Context) {
 			return
 		}
 	} else {
-		tool.RespErrorWithDate(ctx, "请将信息输入完整")
+		tool.RespErrorWithDate(ctx, "请将信息输入完整（也许是没看到旁边的输入密保哦）")
 		return
 	}
 }
