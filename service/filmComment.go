@@ -38,6 +38,12 @@ func FilmCommentLikes(FCId int) error {
 	return err
 }
 
+// FilmCommentDown 影评点踩
+func FilmCommentDown(FCId int) error {
+	err := dao.FilmCommentDown(FCId)
+	return err
+}
+
 // GetMostPopular 得到最流行影评
 func GetMostPopular() ([]model.MostPopularFC, error) {
 	return dao.SelectMPFC()
