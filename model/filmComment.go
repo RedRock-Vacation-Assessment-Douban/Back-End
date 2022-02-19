@@ -11,6 +11,7 @@ type FilmComment struct {
 	CommentNum int       `json:"comment_num"`
 	StarNum    int       `json:"star_num"`
 	Likes      int       `json:"likes"`
+	Down       int       `json:"down"`
 	MovieName  string    `json:"movie_name"`
 	URL        string    `json:"URL"`
 }
