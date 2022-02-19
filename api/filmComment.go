@@ -133,6 +133,24 @@ func filmCommentLikes(ctx *gin.Context) {
 	tool.RespSuccessful(ctx)
 }
 
+// filmCommentDown 影评点踩
+func filmCommentDown(ctx *gin.Context) {
+	filmCommentIdString := ctx.Param("filmcomment_id")
+	filmCommentId, err := strconv.Atoi(filmCommentIdString)
+	if err != nil {
+		fmt.Println("filmComment id string to int err: ", err)
+		tool.RespErrorWithDate(ctx, "filmComment_id格式有误")
+		return
+	}
+	err = service.FilmCommentDown(filmCommentId)
+	if err != nil {
+		tool.RespInternalError(ctx)
+		return
+	}
+
+	tool.RespSuccessful(ctx)
+}
+
 func mostPopularFC(ctx *gin.Context) {
 	MPFCs, err := service.GetMostPopular()
 	if err != nil {

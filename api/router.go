@@ -110,6 +110,7 @@ func InitEngine() {
 			filmCommentGroup.POST("/:movie_id", addFilmComment)              //发布新影评
 			filmCommentGroup.DELETE("/:filmcomment_id", deleteFilmComment)   //删除影评
 			filmCommentGroup.GET("/likes/:filmcomment_id", filmCommentLikes) //给影评点赞
+			filmCommentGroup.GET("/down/:filmcomment_id", filmCommentDown)   //给影评点踩
 		}
 	}
 
@@ -124,13 +125,13 @@ func InitEngine() {
 		}
 	}
 
-	engine.Use(TlsHandler(8081))
-	err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
-	if err != nil {
-		return
-	}
-	//err := engine.Run(":8080")
+	//engine.Use(TlsHandler(8081))
+	//err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
 	//if err != nil {
 	//	return
 	//}
+	err := engine.Run(":8080")
+	if err != nil {
+		return
+	}
 }
