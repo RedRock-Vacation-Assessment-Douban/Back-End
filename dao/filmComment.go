@@ -48,7 +48,7 @@ func SelectNameByFCId(FilmCommentId int) (string, error) {
 // SelectFilmComment 查找影评
 func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 	var filmComments []model.FilmComment
-	rows, err := dB.Query("SELECT id, MovieId, Name, Context, PostTime, CommentNum, StarNum, Likes FROM filmComment WHERE MovieId = ?", movieId)
+	rows, err := dB.Query("SELECT id, MovieId, Name, Context, PostTime, CommentNum, StarNum, Likes, Down FROM filmComment WHERE MovieId = ?", movieId)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 	for rows.Next() {
 		var filmComment model.FilmComment
 
-		err = rows.Scan(&filmComment.Id, &filmComment.MovieId, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes)
+		err = rows.Scan(&filmComment.Id, &filmComment.MovieId, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.Down)
 		if err != nil {
 			return nil, err
 		}
@@ -105,6 +105,17 @@ func DeleteFilmComment(filmCommentId int) error {
 // FilmCommentLikes 给话题点赞
 func FilmCommentLikes(id int) error {
 	sqlStr := `update filmComment set Likes=Likes+1 where id = ?`
+	_, err := dB.Exec(sqlStr, id)
+	if err != nil {
+		fmt.Printf("update failed, err:%v\n", err)
+		return err
+	}
+	return err
+}
+
+// FilmCommentDown 给话题点踩
+func FilmCommentDown(id int) error {
+	sqlStr := `update filmComment set Down=Down+1 where id = ?`
 	_, err := dB.Exec(sqlStr, id)
 	if err != nil {
 		fmt.Printf("update failed, err:%v\n", err)
