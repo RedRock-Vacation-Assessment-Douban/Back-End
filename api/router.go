@@ -68,11 +68,11 @@ func InitEngine() {
 	{
 		topicGroup.GET("/movie/:movie_id", briefTopics) //查看一部电影全部话题概略
 		topicGroup.GET("/:topic_id", topicDetail)       //查看一条话题详细信息和其下属评论
+		topicGroup.GET("/likes/:topic_id", topicLikes)  //给话题点赞
 		{
-			topicGroup.Use(JWTAuth)                        //需要token
-			topicGroup.POST("/:movie_id", addTopic)        //发布新话题
-			topicGroup.DELETE("/:topic_id", deleteTopic)   //删除话题
-			topicGroup.GET("/likes/:topic_id", topicLikes) //给话题点赞
+			topicGroup.Use(JWTAuth)                      //需要token
+			topicGroup.POST("/:movie_id", addTopic)      //发布新话题
+			topicGroup.DELETE("/:topic_id", deleteTopic) //删除话题
 		}
 	}
 
@@ -91,26 +91,26 @@ func InitEngine() {
 	shortCommentGroup := engine.Group("/shortcomment")
 	shortCommentGroup.Use(CORS())
 	{
-		shortCommentGroup.GET("/movie/:movie_id", briefShortComment) //查看一部电影全部短评
+		shortCommentGroup.GET("/likes/:shortcomment_id", shortCommentLikes) //给短评点赞
+		shortCommentGroup.GET("/movie/:movie_id", briefShortComment)        //查看一部电影全部短评
 		{
-			shortCommentGroup.Use(JWTAuth)                                      //需要token
-			shortCommentGroup.POST("/:movie_id", addShortComment)               //发布新短评
-			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment)   //删除短评
-			shortCommentGroup.GET("/likes/:shortcomment_id", shortCommentLikes) //给短评点赞
+			shortCommentGroup.Use(JWTAuth)                                    //需要token
+			shortCommentGroup.POST("/:movie_id", addShortComment)             //发布新短评
+			shortCommentGroup.DELETE("/:shortcomment_id", deleteShortComment) //删除短评
 		}
 	}
 
 	filmCommentGroup := engine.Group("/filmcomment")
 	filmCommentGroup.Use(CORS())
 	{
-		filmCommentGroup.GET("/movie/:movie_id", briefFilmComments) //查看一部电影全部影评概略
-		filmCommentGroup.GET("/:filmcomment_id", filmCommentDetail) //查看一条影评详细信息和其下属评论
+		filmCommentGroup.GET("/movie/:movie_id", briefFilmComments)      //查看一部电影全部影评概略
+		filmCommentGroup.GET("/:filmcomment_id", filmCommentDetail)      //查看一条影评详细信息和其下属评论
+		filmCommentGroup.GET("/likes/:filmcomment_id", filmCommentLikes) //给影评点赞
+		filmCommentGroup.GET("/down/:filmcomment_id", filmCommentDown)   //给影评点踩
 		{
-			filmCommentGroup.Use(JWTAuth)                                    //需要token
-			filmCommentGroup.POST("/:movie_id", addFilmComment)              //发布新影评
-			filmCommentGroup.DELETE("/:filmcomment_id", deleteFilmComment)   //删除影评
-			filmCommentGroup.GET("/likes/:filmcomment_id", filmCommentLikes) //给影评点赞
-			filmCommentGroup.GET("/down/:filmcomment_id", filmCommentDown)   //给影评点踩
+			filmCommentGroup.Use(JWTAuth)                                  //需要token
+			filmCommentGroup.POST("/:movie_id", addFilmComment)            //发布新影评
+			filmCommentGroup.DELETE("/:filmcomment_id", deleteFilmComment) //删除影评
 		}
 	}
 
