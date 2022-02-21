@@ -79,12 +79,12 @@ func InitEngine() {
 	commentGroup := engine.Group("/comment")
 	commentGroup.Use(CORS())
 	{
+		commentGroup.GET("/likes/:comment_id", commentLikes)           //给评论点赞
 		commentGroup.POST("/anonymity/:topic_id", addCommentAnonymity) //匿名评论
 		{
-			commentGroup.Use(JWTAuth)                            //需要token
-			commentGroup.POST("/:topic_id", addComment)          //发送评论
-			commentGroup.DELETE("/:comment_id", deleteComment)   //删除评论
-			commentGroup.GET("/likes/:comment_id", commentLikes) //给评论点赞
+			commentGroup.Use(JWTAuth)                          //需要token
+			commentGroup.POST("/:topic_id", addComment)        //发送评论
+			commentGroup.DELETE("/:comment_id", deleteComment) //删除评论
 		}
 	}
 
@@ -125,13 +125,13 @@ func InitEngine() {
 		}
 	}
 
-	//engine.Use(TlsHandler(8081))
-	//err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
-	//if err != nil {
-	//	return
-	//}
-	err := engine.Run(":8080")
+	engine.Use(TlsHandler(8081))
+	err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
 	if err != nil {
 		return
 	}
+	//err := engine.Run(":8080")
+	//if err != nil {
+	//	return
+	//}
 }
