@@ -26,7 +26,7 @@ func InsertComment(comment model.Comment) error {
 func SelectCommentByTopicId(topicId int) ([]model.Comment, error) {
 	var comments []model.Comment
 
-	rows, err := dB.Query("SELECT id, TopicId, Context, Name, CommentTime FROM comment WHERE TopicId = ?", topicId)
+	rows, err := dB.Query("SELECT id, TopicId, Context, Name, CommentTime, Likes FROM comment WHERE TopicId = ?", topicId)
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func SelectCommentByTopicId(topicId int) ([]model.Comment, error) {
 	for rows.Next() {
 		var comment model.Comment
 
-		err = rows.Scan(&comment.Id, &comment.TopicId, &comment.Context, &comment.Name, &comment.CommentTime)
+		err = rows.Scan(&comment.Id, &comment.TopicId, &comment.Context, &comment.Name, &comment.CommentTime, &comment.Likes)
 		if err != nil {
 			return nil, err
 		}
