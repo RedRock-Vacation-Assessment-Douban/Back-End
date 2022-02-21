@@ -26,6 +26,7 @@ type MostPopularFC struct {
 	Name      string
 	Context   string
 	StarNum   string
+	MovieId   int
 	URL       string
 	MovieName string
 }
