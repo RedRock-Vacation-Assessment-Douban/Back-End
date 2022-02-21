@@ -15,12 +15,12 @@ func InsertFilmComment(filmComment model.FilmComment) error {
 func SelectFilmCommentById(filmCommentId int) (model.FilmComment, error) {
 	var filmComment model.FilmComment
 
-	row := dB.QueryRow("SELECT id, MovieId, Name, Context, PostTime, CommentNum, StarNum, Likes FROM filmComment WHERE id = ? ", filmCommentId)
+	row := dB.QueryRow("SELECT id, MovieId, Name, Context, PostTime, CommentNum, StarNum, Likes, Down, MovieName, URL FROM filmComment WHERE id = ? ", filmCommentId)
 	if row.Err() != nil {
 		return filmComment, row.Err()
 	}
 
-	err := row.Scan(&filmComment.Id, &filmComment.MovieId, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes)
+	err := row.Scan(&filmComment.Id, &filmComment.MovieId, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.Down, &filmComment.MovieName, &filmComment.URL)
 	if err != nil {
 		return filmComment, err
 	}
