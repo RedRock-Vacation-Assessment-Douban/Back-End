@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,13 +8,12 @@ func InitEngine() {
 	engine := gin.Default()
 	engine.Use(CORS())
 
-	engine.Use(static.Serve("/", static.LocalFile("./static", false)))
 	engine.POST("/register", register)       //注册
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
 	engine.POST("/mibao/question", question) //查询密保问题
 
-	engine.GET("/brief1", briefMovies1) //电影页
+	engine.GET("/brief1", briefMovies1) //主页
 	engine.GET("/brief2", briefMovies2)
 	engine.GET("/brief3", briefMovies3)
 	engine.GET("/recommend", briefVideo)      //推荐页
@@ -125,13 +123,13 @@ func InitEngine() {
 		}
 	}
 
-	engine.Use(TlsHandler(8081))
-	err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
-	if err != nil {
-		return
-	}
-	//err := engine.Run(":8080")
+	//engine.Use(TlsHandler(8081))
+	//err := engine.RunTLS(":8081", "/data/42.192.155.29_chain.crt", "/data/42.192.155.29_key.key")
 	//if err != nil {
 	//	return
 	//}
+	err := engine.Run(":8083")
+	if err != nil {
+		return
+	}
 }
