@@ -36,3 +36,10 @@ func RespSuccessfulWithTwoDate(ctx *gin.Context, celebrity interface{}, movie in
 		"movie":     movie,
 	})
 }
+
+func RespSuccessfulWithTwoDate2(ctx *gin.Context, name interface{}, token interface{}) {
+	ctx.JSON(http.StatusOK, gin.H{
+		"name":  name,
+		"token": token,
+	})
+}
