@@ -42,5 +42,5 @@ func Oauth(ctx *gin.Context) {
 	if err != nil {
 		tool.RespInternalError(ctx)
 	}
-	tool.RespSuccessfulWithTwoDate(ctx, user, s)
+	tool.RespSuccessfulWithTwoDate2(ctx, user, s)
 }
