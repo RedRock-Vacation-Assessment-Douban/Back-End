@@ -10,7 +10,7 @@ import (
 var conf = model.Conf{
 	ClientId:     "a915f210ec53c297a8ea",
 	ClientSecret: "d39c4dd2ee8eb4d493b17745ac2db24f699be08f",
-	RedirectUrl:  "http://42.192.155.29:8080/oauth",
+	RedirectUrl:  "http://localhost:8080/oauth",
 }
 
 func GetTokenAuthUrl(code string) string {

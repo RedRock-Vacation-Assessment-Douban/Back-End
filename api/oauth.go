@@ -11,9 +11,9 @@ import (
 
 func Oauth(ctx *gin.Context) {
 	var err error
-	// 获取 code
+
 	var code = ctx.Query("code")
-	// 通过 code, 获取 token
+
 	var tokenAuthUrl = service.GetTokenAuthUrl(code)
 	var token *model.Token
 	if token, err = service.GetToken(tokenAuthUrl); err != nil {
