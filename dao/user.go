@@ -170,3 +170,22 @@ func SelectUserMovie(username string) ([]model.UserMovie, error) {
 
 	return users, nil
 }
+
+//func UserRecommend(user string, movie string) error {
+//	_, err := rdb.ZIncrBy(user, 1, movie).Result()
+//	if err != nil {
+//		fmt.Printf("zincrby failed, err:%v\n", err)
+//		return err
+//	}
+//	return err
+//}
+
+//func Recommend(user string) ([]redis.Z, error) {
+//	ret, err := rdb.ZRevRangeWithScores(user, 0, 2).Result()
+//	if err != nil {
+//		fmt.Printf("zrevrange failed, err:%v\n", err)
+//		return _, err
+//	}
+//
+//	return ret, err
+//}
