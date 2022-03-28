@@ -11,7 +11,13 @@ func main() {
 	if err != nil {
 		fmt.Printf("init DB failed, err:%v\n", err)
 	} else {
-		fmt.Println("连接数据库成功!")
+		fmt.Println("连接MySQL数据库成功!")
+	}
+	err = dao.InitRedis()
+	if err != nil {
+		fmt.Printf("init redis failed, err:%v\n", err)
+	} else {
+		fmt.Println("连接Redis数据库成功!")
 	}
 	api.InitEngine()
 }
