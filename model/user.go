@@ -23,3 +23,9 @@ type UserMovie struct {
 	HaveWatchedId  string
 	HaveWatchedURL string
 }
+
+type Recommend struct {
+	Movie1 string
+	Movie2 string
+	Movie3 string
+}
