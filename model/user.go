@@ -12,6 +12,11 @@ type User struct {
 	RegisterTime     time.Time
 }
 
+type UserInfo struct {
+	Id       int
+	Password string
+}
+
 type User2 struct {
 	SelfIntroduction string
 	RegisterTime     time.Time
