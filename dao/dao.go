@@ -7,6 +7,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/schema"
 )
 
 var dB *sql.DB
@@ -50,6 +51,9 @@ func InitGormDB() (err error) {
 	}), &gorm.Config{
 		SkipDefaultTransaction:                   false,
 		DisableForeignKeyConstraintWhenMigrating: true,
+		NamingStrategy: schema.NamingStrategy{
+			SingularTable: true,
+		},
 	})
 	if err != nil {
 		fmt.Printf("连接失败：%v\n", err)
