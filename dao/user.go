@@ -6,9 +6,12 @@ import (
 )
 
 // UpdatePassword 更新密码操作
+//db.Model(&model.User{}).Where("Name = ", "yxh").Update("Name", "test")
 func UpdatePassword(Name string, newPassword string) error {
-	sqlStr := `update user set Password=? where Name = ?`
-	_, err := dB.Exec(sqlStr, newPassword, Name)
+	//sqlStr := `update user set Password=? where Name = ?`
+	//_, err := dB.Exec(sqlStr, newPassword, Name)
+	deRes := db.Model(&model.User{}).Where("Name = ?", Name).Update("Password", newPassword)
+	err := deRes.Error
 	if err != nil {
 		fmt.Printf("update failed, err:%v\n", err)
 		return err
@@ -17,19 +20,22 @@ func UpdatePassword(Name string, newPassword string) error {
 }
 
 // SelectUserByUsername 查找用户
-func SelectUserByUsername(Name string) (model.User, error) {
-	user := model.User{}
-
-	row := dB.QueryRow("SELECT id, password FROM user WHERE Name = ? ", Name)
-	if row.Err() != nil {
-		return user, row.Err()
-	}
-
-	err := row.Scan(&user.Id, &user.Password)
+//var U []model.UserInfo
+//db.Model(&model.User{}).Select("Name").Where("Name LIKE ?", "%袁%").Find(&U)
+func SelectUserByUsername(Name string) (model.UserInfo, error) {
+	//var user model.User
+	var user model.UserInfo
+	//row := dB.QueryRow("SELECT id, password FROM user WHERE Name = ? ", Name)
+	//if row.Err() != nil {
+	//	return user, row.Err()
+	//}
+	//err := row.Scan(&user.Id, &user.Password)
+	dbRes := db.Model(&model.User{}).Select("id", "password").Where("Name = ?", Name).Find(&user)
+	err := dbRes.Error
 	if err != nil {
 		return user, err
 	}
-
+	//fmt.Println(user)
 	return user, nil
 }
 
