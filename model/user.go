@@ -8,8 +8,8 @@ type User struct {
 	Password         string
 	Question         string
 	Answer           string
-	SelfIntroduction string
-	RegisterTime     time.Time
+	SelfIntroduction string    `gorm:"column:SelfIntroduction"`
+	RegisterTime     time.Time `gorm:"column:RegisterTime"`
 }
 
 type UserInfo struct {
