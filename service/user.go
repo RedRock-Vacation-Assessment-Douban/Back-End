@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"douban/dao"
 	"douban/model"
+	"gorm.io/gorm"
 )
 
 // ChangePassword 修改密码服务
@@ -34,7 +35,7 @@ func IsPasswordCorrect(username, password string) (bool, error) {
 func IsRepeatUsername(username string) (bool, error) {
 	_, err := dao.SelectUserByUsername(username)
 	if err != nil {
-		if err == sql.ErrNoRows {
+		if err == gorm.ErrRecordNotFound {
 			return false, nil
 		}
 
