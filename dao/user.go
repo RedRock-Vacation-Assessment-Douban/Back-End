@@ -30,20 +30,21 @@ func SelectUserByUsername(Name string) (model.UserInfo, error) {
 	//	return user, row.Err()
 	//}
 	//err := row.Scan(&user.Id, &user.Password)
-	dbRes := db.Model(&model.User{}).Select("id", "password").Where("Name = ?", Name).Find(&user)
+	dbRes := db.Model(&model.User{}).Select("id", "password").Where("Name = ?", Name).First(&user)
 	err := dbRes.Error
 	if err != nil {
 		return user, err
 	}
-	//fmt.Println(user)
+	fmt.Println(user)
 	return user, nil
 }
 
 // Insert 注册时插入数据
 func Insert(user model.User) error {
-
-	sqlStr := "insert into user(Name,Password,Question,Answer,RegisterTime)values (?,?,?,?,?)"
-	_, err := dB.Exec(sqlStr, user.Name, user.Password, user.Question, user.Answer, user.RegisterTime)
+	//sqlStr := "insert into user(Name,Password,Question,Answer,RegisterTime)values (?,?,?,?,?)"
+	//_, err := dB.Exec(sqlStr, user.Name, user.Password, user.Question, user.Answer, user.RegisterTime)
+	deres := db.Select("Name", "Password", "Question", "Answer", "RegisterTime").Create(&model.User{Name: user.Name, Password: user.Password, Question: user.Question, Answer: user.Answer, RegisterTime: user.RegisterTime})
+	err := deres.Error
 	if err != nil {
 		fmt.Printf("insert failed, err:%v\n", err)
 		return err
@@ -54,8 +55,9 @@ func Insert(user model.User) error {
 // SelectAnswerByUsername 通过用户名来找到密保的答案
 func SelectAnswerByUsername(Name string) string {
 	user := model.User{}
-	sqlStr := `select answer from user where name=?;`
-	dB.QueryRow(sqlStr, Name).Scan(&user.Answer)
+	//sqlStr := `select answer from user where name=?;`
+	//dB.QueryRow(sqlStr, Name).Scan(&user.Answer)
+	db.Model(&model.User{}).Select("answer").Where("Name = ?", Name).Find(&user)
 	return user.Answer
 }
 
@@ -70,8 +72,9 @@ func SelectAnswerByUsername(Name string) string {
 // SelectQuestionByUsername 通过用户名来找到密保问题
 func SelectQuestionByUsername(Name string) string {
 	user := model.User{}
-	sqlStr := `select Question from user where name=?;`
-	dB.QueryRow(sqlStr, Name).Scan(&user.Question)
+	//sqlStr := `select Question from user where name=?;`
+	//dB.QueryRow(sqlStr, Name).Scan(&user.Question)
+	db.Model(&model.User{}).Select("question").Where("Name = ?", Name).Find(&user)
 	if user.Question == "" {
 		return ""
 	}
@@ -80,8 +83,10 @@ func SelectQuestionByUsername(Name string) string {
 
 // UpdateSI 更新自我介绍
 func UpdateSI(Name string, newSelfIntroduction string) error {
-	sqlStr := `update user set SelfIntroduction=? where Name = ?`
-	_, err := dB.Exec(sqlStr, newSelfIntroduction, Name)
+	//sqlStr := `update user set SelfIntroduction=? where Name = ?`
+	//_, err := dB.Exec(sqlStr, newSelfIntroduction, Name)
+	dbRes := db.Model(&model.User{}).Where("Name = ?", Name).Update("SelfIntroduction", newSelfIntroduction)
+	err := dbRes.Error
 	if err != nil {
 		fmt.Printf("update failed, err:%v\n", err)
 		return err
@@ -91,23 +96,12 @@ func UpdateSI(Name string, newSelfIntroduction string) error {
 
 func SelectUser(username string) ([]model.User2, error) {
 	var users []model.User2
-	rows, err := dB.Query("SELECT SelfIntroduction,RegisterTime FROM user WHERE Name = ?", username)
+	dbRes := db.Model(&model.User{}).Select("RegisterTime", "SelfIntroduction").Where("Name = ?", username).Find(&users)
+	err := dbRes.Error
 	if err != nil {
-		return nil, err
+		fmt.Printf("select failed, err:%v\n", err)
+		return users, err
 	}
-
-	defer rows.Close()
-	for rows.Next() {
-		var user model.User2
-
-		err = rows.Scan(&user.SelfIntroduction, &user.RegisterTime)
-		if err != nil {
-			return nil, err
-		}
-
-		users = append(users, user)
-	}
-
 	return users, nil
 }
 
@@ -157,23 +151,12 @@ func UpdateHWURL(Name string, URL string) error {
 
 func SelectUserMovie(username string) ([]model.UserMovie, error) {
 	var users []model.UserMovie
-	rows, err := dB.Query("SELECT WantToWatchId, WantToWatchURL, HaveWatchedId, HaveWatchedURL FROM user WHERE Name = ?", username)
+	dbRes := db.Model(&model.User{}).Select("WantToWatchId", "WantToWatchURL", "HaveWatchedId", "HaveWatchedURL").Where("Name = ?", username).Find(&users)
+	err := dbRes.Error
 	if err != nil {
-		return nil, err
+		fmt.Printf("select failed, err:%v\n", err)
+		return users, err
 	}
-
-	defer rows.Close()
-	for rows.Next() {
-		var user model.UserMovie
-
-		err = rows.Scan(&user.WantToWatchId, &user.WantToWatchURL, &user.HaveWatchedId, &user.HaveWatchedURL)
-		if err != nil {
-			return nil, err
-		}
-
-		users = append(users, user)
-	}
-
 	return users, nil
 }
 
