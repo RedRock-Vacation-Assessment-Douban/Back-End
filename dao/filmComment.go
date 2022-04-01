@@ -48,23 +48,8 @@ func SelectNameByFCId(FilmCommentId int) (string, error) {
 // SelectFilmComment 查找影评
 func SelectFilmComment(movieId int) ([]model.FilmComment, error) {
 	var filmComments []model.FilmComment
-	rows, err := dB.Query("SELECT id, MovieId, Name, Context, PostTime, CommentNum, StarNum, Likes, Down FROM filmComment WHERE MovieId = ?", movieId)
-	if err != nil {
-		return nil, err
-	}
 
-	defer rows.Close()
-	for rows.Next() {
-		var filmComment model.FilmComment
-
-		err = rows.Scan(&filmComment.Id, &filmComment.MovieId, &filmComment.Name, &filmComment.Context, &filmComment.PostTime, &filmComment.CommentNum, &filmComment.StarNum, &filmComment.Likes, &filmComment.Down)
-		if err != nil {
-			return nil, err
-		}
-
-		filmComments = append(filmComments, filmComment)
-	}
-
+	db.Model(&model.FilmComment{}).Where("MovieId = ?", movieId).Find(&filmComments)
 	return filmComments, nil
 }
 
