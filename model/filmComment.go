@@ -4,16 +4,20 @@ import "time"
 
 type FilmComment struct {
 	Id         int       `json:"id"`
-	MovieId    int       `json:"MovieId"`
+	MovieId    int       `json:"MovieId" gorm:"column:MovieId"`
 	Context    string    `json:"context"`
 	Name       string    `json:"name"`
-	PostTime   time.Time `json:"post_time"`
-	CommentNum int       `json:"comment_num"`
-	StarNum    int       `json:"star_num"`
+	PostTime   time.Time `json:"post_time" gorm:"column:PostTime"`
+	CommentNum int       `json:"comment_num" gorm:"column:CommentNum"`
+	StarNum    int       `json:"star_num" gorm:"column:StarNum"`
 	Likes      int       `json:"likes"`
 	Down       int       `json:"down"`
-	MovieName  string    `json:"movie_name"`
+	MovieName  string    `json:"movie_name" gorm:"column:MovieName"`
 	URL        string    `json:"URL"`
+}
+
+func (FilmComment) TableName() string {
+	return "filmComment"
 }
 
 type FilmCommentDetail struct {
