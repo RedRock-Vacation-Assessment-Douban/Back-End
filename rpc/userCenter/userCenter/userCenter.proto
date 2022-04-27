@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package UserCenter;
+
+option go_package = "./userCenter";
+
+message RegisterReq{
+  string username = 1;
+  string password = 2;
+  string question = 3;
+  string answer = 4;
+}
+
+message RegisterRes{
+  bool status = 1;
+  int32 ID =2;
+}
+
+message LoginReq{
+  string username = 1;
+  string password = 2;
+}
+
+message LoginRes{
+  bool status = 1;
+  string token = 2;
+}
+
+service RegisterCenter{
+  rpc Register(RegisterReq) returns (RegisterRes);
+  rpc Login(LoginReq) returns(LoginRes);
+}

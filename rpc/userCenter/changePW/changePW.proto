@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package changePW;
+
+option go_package = "./changePW";
+
+message changeReq {
+  string token = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message changeRes {
+  bool status = 1;
+  string msg = 2;//提示信息
+}
+
+service changePW {
+  rpc changePW (changeReq) returns (changeRes);
+}
