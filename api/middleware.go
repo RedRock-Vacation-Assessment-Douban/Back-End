@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var mySigningKey = []byte("RedRock")
+var MySigningKey = []byte("RedRock")
 
 // JWTAuth JWT登录
 func JWTAuth(ctx *gin.Context) {
@@ -25,7 +25,7 @@ func JWTAuth(ctx *gin.Context) {
 func ParseToken(s string) string {
 	//解析传过来的token
 	tokenClaims, err := jwt.ParseWithClaims(s, &model.MyClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return mySigningKey, nil
+		return MySigningKey, nil
 	})
 	if err != nil {
 		fmt.Println(err)

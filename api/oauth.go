@@ -38,7 +38,7 @@ func Oauth(ctx *gin.Context) {
 		},
 	}
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	s, err := t.SignedString(mySigningKey)
+	s, err := t.SignedString(MySigningKey)
 	if err != nil {
 		tool.RespInternalError(ctx)
 	}

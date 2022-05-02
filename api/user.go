@@ -2,6 +2,7 @@ package api
 
 import (
 	"douban/model"
+	"douban/rpc"
 	"douban/service"
 	"douban/tool"
 	"fmt"
@@ -9,6 +10,34 @@ import (
 	"github.com/gin-gonic/gin"
 	"time"
 )
+
+func rpcLogin(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	//用etcd找服务
+	ctl := rpc.NewUserLrCtl("127.0.0.1:2379", "douban", "user_center")
+	res := ctl.CallRegister(model.User{
+		Name:     username,
+		Password: password,
+	})
+	tool.RespSuccessfulWithDate(ctx, res)
+}
+
+func rpcRegister(ctx *gin.Context) {
+	username := ctx.PostForm("username")
+	password := ctx.PostForm("password")
+	question := ctx.PostForm("question")
+	answer := ctx.PostForm("answer")
+	ctl := rpc.NewUserLrCtl("127.0.0.1:2379", "douban", "user_center")
+	res := ctl.CallRegister(model.User{
+		Name:         username,
+		Password:     password,
+		Question:     question,
+		Answer:       answer,
+		RegisterTime: time.Now(),
+	})
+	tool.RespSuccessfulWithDate(ctx, res)
+}
 
 // changePassword 改密码
 func changePassword(ctx *gin.Context) {
@@ -75,7 +104,7 @@ func login(ctx *gin.Context) {
 		},
 	}
 	t := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	s, err := t.SignedString(mySigningKey)
+	s, err := t.SignedString(MySigningKey)
 	if err != nil {
 		tool.RespInternalError(ctx)
 	}

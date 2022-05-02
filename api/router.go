@@ -8,6 +8,9 @@ func InitEngine() {
 	engine := gin.Default()
 	engine.Use(CORS())
 
+	engine.POST("/rpcRegister", rpcRegister) //注册
+	engine.POST("/rpcLogin", rpcLogin)       //登陆
+
 	engine.POST("/register", register)       //注册
 	engine.POST("/login", login)             //登陆
 	engine.POST("/mibao", mibao)             //密保
